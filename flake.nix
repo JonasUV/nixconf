@@ -4,23 +4,29 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # home-manager = {
-    #   url = "github:nix-community/home-manager";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+     #home-manager = {
+     #  url = "github:nix-community/home-manager";
+     #  inputs.nixpkgs.follows = "nixpkgs";
+     #};
   };
 
   outputs = { self, nixpkgs, ... }@inputs: 
    let
-	system = "x86_64-linux";
+    system = "x86_64-linux";
+    hostname = "nixos-vm";
+    username = "jonas";
 	pkgs = nixpkgs.legacyPackages.${system};
    in
    {
-     nixosConfigurations.default = nixpkgs.lib.nixosSystem {
+    imports = [
+        modules/nixos/general.nix
+    ];
+     nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
        specialArgs = {inherit inputs;};
        modules = [
-         ./configuration.nix
-         # inputs.home-manager.nixosModules.default
+          hosts/${hostname}/configuration.nix
+          
+          #inputs.home-manager.nixosModules.${hostname}
        ];
       };
   };

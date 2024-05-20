@@ -51,9 +51,9 @@
   services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "de";
-    xkbVariant = "";
+    variant = "";
   };
 
   # Configure console keymap
@@ -105,6 +105,8 @@
     wget
     neofetch
     git
+    tree
+    vscode
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -119,6 +121,8 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+
+  #vm realted stuff
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
