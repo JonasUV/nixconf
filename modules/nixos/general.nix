@@ -4,7 +4,11 @@
   ...
 }: {
 
-    
+  imports [
+    ./sddm.nix
+    ./pipewire.nix
+  ];
+
   fonts.packages = with pkgs; [
     (pkgs.nerdfonts.override {fonts = ["JetBrainsMono" "Iosevka" "FiraCode"];})
     cm_unicode
